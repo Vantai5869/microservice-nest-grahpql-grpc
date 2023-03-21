@@ -1,0 +1,293 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+type ErrorPayload {
+  field: String
+  message: [String!]
+}
+
+type User {
+  id: ID!
+  createdAt: Int!
+  updatedAt: Int!
+  email: String!
+  fullName: String!
+  status: String!
+  role: String!
+  gender: String!
+  contact: String!
+  dobDay: Float!
+  dobMonth: Float!
+  dobYear: Float!
+  occupation: String
+  avatar: String
+}
+
+type UserPayload {
+  errors: [ErrorPayload!]
+  user: User
+}
+
+type UsersConnection {
+  edges: [UserEdge!]!
+  pageInfo: PageInfo!
+}
+
+type UserEdge {
+  node: User!
+  cursor: String!
+}
+
+type Merchant {
+  id: ID!
+  createdAt: Int!
+  updatedAt: Int!
+  name: String!
+  phone: String!
+  address: String!
+  cityCode: Int!
+  districtCode: Int!
+  wardCode: Int!
+  profileId: Int!
+}
+
+type MerchantBranch {
+  id: ID!
+  createdAt: Int!
+  updatedAt: Int!
+  name: String!
+  phone: String!
+  address: String!
+  cityCode: Int!
+  districtCode: Int!
+  wardCode: Int!
+  profileId: Int!
+  merchantId: Int!
+}
+
+type ImageCategory {
+  id: ID!
+  createdAt: Int!
+  updatedAt: Int!
+  name: String!
+  imageUrl: String!
+  description: String
+}
+
+type Category {
+  id: ID!
+  createdAt: Int!
+  updatedAt: Int!
+  name: String!
+  code: String!
+  image: ImageCategory
+}
+
+type Customer {
+  id: ID!
+  createdAt: Int!
+  updatedAt: Int!
+  email: String!
+  fullName: String!
+  status: String!
+  role: String!
+  gender: String!
+  contact: String!
+  level: String!
+  dobDay: Int!
+  dobMonth: Int!
+  dobYear: Int!
+  userId: Int!
+  branchId: Int
+  occupation: String
+  avatar: String
+  referrer: String
+  referrerCode: String
+}
+
+type CustomersConnection {
+  edges: [CustomerEdge!]!
+  pageInfo: PageInfo!
+}
+
+type CustomerEdge {
+  node: Customer!
+  cursor: String!
+}
+
+type CustomerPayload {
+  errors: [ErrorPayload!]
+  customer: Customer
+}
+
+type DeleteCustomerPayload {
+  errors: [ErrorPayload!]
+  count: Int
+}
+
+type ResponseLoginGrpc {
+  user: User!
+  accessToken: String!
+  refreshToken: String!
+}
+
+type ResponseRegisterGrpc {
+  user: User!
+  accessToken: String!
+  refreshToken: String!
+  merchant: Merchant!
+  merchantBranch: MerchantBranch!
+}
+
+type FindAllBranches {
+  merchantBranches: [MerchantBranch!]!
+}
+
+type FindAllCategories {
+  categories: [Category!]!
+}
+
+type ResponseSingleUpload {
+  url: String!
+  format: String!
+  folder: String!
+  width: Float!
+  height: Float!
+  bytes: Float!
+}
+
+type Query {
+  findOneMerchant(id: Float!): Merchant!
+  getUsers(q: String, first: Float, last: Float, before: String, after: String, orderBy: String): UsersConnection!
+  getUser(id: Float!): User!
+  findBranches: FindAllBranches!
+  findBranchById(id: Float!): MerchantBranch!
+  findCategories: FindAllCategories!
+  findCategoryById(id: Float!): Category!
+  getAllCustomer(q: String!, first: Float!, last: Float!, before: String!, after: String!, orderBy: String!): CustomersConnection!
+}
+
+type Mutation {
+  login(data: InputLoginRequest!): ResponseLoginGrpc!
+  register(data: InputRegisterRequest!): ResponseRegisterGrpc!
+  refreshToken: UserPayload!
+  logout: Boolean!
+  updatePassword(data: ChangePasswordInput!): User!
+  createBranch(data: BranchDto!): MerchantBranch!
+  updateBranch(id: Float!, data: BranchDto!): MerchantBranch!
+  deleteBranch(id: Float!): MerchantBranch!
+  createCategory(data: CategoryDto!, file: Upload, folder: String): Category!
+  updateCategory(id: Float!, data: CategoryDto!): Category!
+  deleteCategory(id: Float!): Category!
+  uploadSingleFiles(file: Upload!, folder: String): ResponseSingleUpload!
+  uploadMultipleFiles(folder: String, files: [Upload!]!): [ResponseSingleUpload!]!
+  createCustomer(data: CreateCustomerInputDto!): CustomerPayload!
+  updateCustomer(id: Float!, data: UpdateCustomerInputDto!): CustomerPayload!
+  updateCustomerPassword(data: UpdatePasswordInput!): CustomerPayload!
+  deleteCustomer: DeleteCustomerPayload!
+}
+
+input InputLoginRequest {
+  email: String!
+  password: String!
+}
+
+input InputRegisterRequest {
+  fullName: String!
+  email: String!
+  password: String!
+  status: String!
+  role: String!
+  gender: String!
+  contact: String!
+  dobDay: Float!
+  dobMonth: Float!
+  dobYear: Float!
+  occupation: String
+  avatar: String
+  confirmPassword: String!
+  phone: String!
+  merchantPhone: String!
+  merchantName: String!
+  merchantAddress: String!
+  cityCode: Float!
+  districtCode: Float!
+  wardCode: Float!
+  merchantSubdomain: String!
+}
+
+input ChangePasswordInput {
+  currentPassword: String!
+  newPassword: String!
+  confirmPassword: String!
+}
+
+input BranchDto {
+  name: String!
+  phone: String!
+  address: String!
+  cityCode: Float!
+  districtCode: Float!
+  wardCode: Float!
+  profileId: Float!
+  merchantId: Float!
+  createdAt: Float!
+  updatedAt: Float!
+}
+
+input CategoryDto {
+  name: String!
+  code: String!
+  imageUrl: String
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+input CreateCustomerInputDto {
+  fullName: String!
+  email: String!
+  password: String!
+  status: String!
+  role: String!
+  gender: String!
+  contact: String!
+  dobDay: Float!
+  dobMonth: Float!
+  dobYear: Float!
+  occupation: String
+  avatar: String
+  referrer: String
+  referrerCode: String
+  userId: Int
+  level: String
+  branchId: Int
+}
+
+input UpdateCustomerInputDto {
+  fullName: String!
+  password: String!
+  dobDay: Float!
+  dobMonth: Float!
+  dobYear: Float!
+  occupation: String!
+  avatar: String!
+  status: String!
+  role: String!
+  gender: String!
+  contact: String!
+}
+
+input UpdatePasswordInput {
+  currentPassword: String!
+  newPassword: String!
+  confirmPassword: String!
+}
