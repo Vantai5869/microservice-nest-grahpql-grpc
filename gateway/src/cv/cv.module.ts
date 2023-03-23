@@ -12,12 +12,12 @@ import { AuthModule } from '../auth/auth.module';
   imports: [
     ClientsModule.register([
       {
-        name: 'CV_PACKAGE',
+        name: 'HELLO_WORLD_SERVICE',
         transport: Transport.GRPC,
         options: {
-          url: 'localhost:50000',
-          package: 'cv',
-          protoPath: join(__dirname, '/../protos/cv.proto'),
+          // url: 'localhost:50000',
+          package: 'hello',
+          protoPath: join(__dirname, '/../protos/hello.proto'),
         },
       },
     ]),

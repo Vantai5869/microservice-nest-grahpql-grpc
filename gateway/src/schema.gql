@@ -164,6 +164,57 @@ type ResponseSingleUpload {
   bytes: Float!
 }
 
+type Cv {
+  id: Int!
+  name: String!
+  gender: String!
+  nationality: String!
+  objective: String!
+  summary: String!
+  isDeleted: Boolean!
+  userId: Int!
+}
+
+type HelloType {
+  id: ID!
+  createdAt: Int!
+  updatedAt: Int!
+  reply: String!
+}
+
+type EducationCertification {
+  id: Int!
+  name: String!
+  time: String!
+  major: String!
+  isDeleted: Boolean!
+  cv: Cv!
+}
+
+type WorkExperience {
+  id: Int!
+  time: String!
+  company: String!
+  jobTitle: String!
+  jobDescription: String!
+  isDeleted: Boolean!
+  cv: Cv!
+  experienceProjects: [ExperienceProject!]!
+}
+
+type ExperienceProject {
+  id: Int!
+  name: String!
+  time: String!
+  projectDescription: String!
+  role: String!
+  responsibilities: String!
+  programmingLanguages: String!
+  isDeleted: Boolean!
+  cv: Cv!
+  workExperience: WorkExperience!
+}
+
 type Query {
   findOneMerchant(id: Float!): Merchant!
   getUsers(q: String, first: Float, last: Float, before: String, after: String, orderBy: String): UsersConnection!
@@ -173,6 +224,10 @@ type Query {
   findCategories: FindAllCategories!
   findCategoryById(id: Float!): Category!
   getAllCustomer(q: String!, first: Float!, last: Float!, before: String!, after: String!, orderBy: String!): CustomersConnection!
+  getHelloWorld: HelloType!
+  findEcs(cvId: Float!): [EducationCertification!]!
+  findWes(cvId: Float!): [WorkExperience!]!
+  findEps(cvId: Float!): [ExperienceProject!]!
 }
 
 type Mutation {

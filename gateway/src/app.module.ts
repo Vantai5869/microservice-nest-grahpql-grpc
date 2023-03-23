@@ -13,6 +13,7 @@ import { MerchantBranchModule } from './modules/branch/branch.module';
 import { MerchantCategoryModule } from './modules/category/category.module';
 import { CustomerModule } from './modules/customer/customer.module';
 import { NotificationModule } from './notification/notification.module';
+import { CvModule } from './cv/cv.module';
 
 @Module({
   imports: [
@@ -38,7 +39,8 @@ import { NotificationModule } from './notification/notification.module';
     MerchantBranchModule,
     MerchantCategoryModule,
     CustomerModule,
-    NotificationModule
+    NotificationModule,
+    CvModule
   ],
   providers: [
     {
